@@ -1,0 +1,113 @@
+﻿@using Syncfusion.Blazor.Cards;
+
+<div @attributes="AdditionalAttributes" class="working-hours-map">
+    <SfCard>
+        <CardContent>
+            <div class="working-hours-container">
+                <div class="working-hours-details">
+                    <div class="working-hours-details-text">
+                        <div class="hours">
+                            <LabelBase Label="Ми" CssClass="text-come-to-you"></LabelBase>
+                            <LabelBase Label="Працюємо
+                                              з 8:00 до 19:00 пн-пт
+                                              з 9:00 до 15:00 сб-нд" 
+                                       CssClass="hours-label"></LabelBase>
+                            <LabelBase Label="вул. Антоновича 4" CssClass="address-label"></LabelBase>
+                        </div>
+                        <div class="visit-info">
+                            <ImageBase Src="/images/boy_and_hand.svg" Alt="Хлопчик, який махає рукою"
+                                       CssClass="visit-image-boy"></ImageBase>
+                            <div class="text-come-to-you-container">
+                                <LabelBase Label="Прийдемо до вас" CssClass="text-come-to-you"></LabelBase>
+                                <LabelBase Label="з 8:00 до 18:00 пн-нд" CssClass="hours-label-work"></LabelBase>
+                            </div>
+                        </div>
+                    </div>
+                            
+                    <div class="google-map-container">
+                        <ImageBase Src="/images/big_map.svg" Alt="Карта"
+                                   CssClass="visit-image-map"></ImageBase>
+                    </div>
+                </div>
+            </div>
+        </CardContent>
+    </SfCard>
+</div>
+
+<style>
+    .e-card{
+        box-shadow: none;
+        background-color: #ffffff;
+    }
+    
+    .working-hours-map{
+        margin-top: 50px;
+    }
+
+    .working-hours-details {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .google-map-container {
+        flex: 1;
+        order: 2;
+    }
+    
+    .working-hours-details-text {
+        flex: 1;
+        order: 1;
+    }
+    
+    .working-hours-details {
+        display: flex;
+    }
+    
+    .hours-label, .hours-label-work {
+        display: block;
+        font-size: 25px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        white-space: pre-line;
+    }
+    .hours-label-work{
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    .visit-info {
+        display: flex;
+        margin-top: 30px;
+        padding: 10px;
+        background-color: #ffffff; 
+        border-radius: 4px;
+        text-align: left;
+        font-size: 16px;
+        font-weight: bold;
+        align-items: center;
+    }
+    .hours{
+        display: block;
+        padding: 10px;
+    }
+    .office-street-addition-card{
+        margin-top: 15px !important;
+        font-size: 16px;
+    }
+    
+    .text-come-to-you-container{
+        display: block;
+        margin-right: 10px;
+    }
+    
+    .text-come-to-you{
+        font-size: 30px;
+        text-transform: uppercase;
+        font-family: 'Exo_2', sans-serif;
+    }
+    
+    .address-label{
+        font-size: 25px;
+        margin-top: 30px;
+        font-family: 'Exo_2', sans-serif;
+    }
+</style>

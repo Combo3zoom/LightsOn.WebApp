@@ -1,0 +1,52 @@
+﻿@using Syncfusion.Blazor.Buttons
+
+
+<div class="control-container">
+    <SfAppBar ColorMode="AppBarColor.Inherit"
+              class="custom-appbar">
+        <SfButton class="e-inherit" @onclick="OnMainButtonPressed" Content="Головна"></SfButton>
+        <SfButton class="e-inherit" @onclick="OnContactsButtonPressed" Content="Контакти"></SfButton>
+        <SfButton class="e-inherit" @onclick="OnServicesButtonPressed" Content="Послуги"></SfButton>
+    </SfAppBar>
+    <div class="appbar-line"></div>
+</div>
+
+
+<style>
+   
+    .control-container .e-inherit:hover::after {
+        content: '';
+        display: block;
+        margin-top: 0px;
+        border-bottom: 2px solid blue;
+    } 
+
+    .app-bar-container .e-btn.e-inherit {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 40px;
+        font-family: 'Exo_2', sans-serif;
+        font-weight: normal;
+    }
+ 
+    .control-container .custom-appbar {
+        margin-top: 10px;
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        
+    }
+
+    .control-container{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .appbar-line {
+        height: 2px;
+        background-color: blue;
+        width: calc(100% - 40px);
+        margin: 5px auto 0;
+    }
+    
+</style>
