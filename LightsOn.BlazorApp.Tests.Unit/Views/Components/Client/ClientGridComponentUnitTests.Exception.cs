@@ -2,9 +2,9 @@ using System.Collections.Immutable;
 using Bunit;
 using FluentAssertions;
 using LanguageExt;
-using LightsOn.BlazorApp.Models.ClientViews;
-using LightsOn.BlazorApp.Models.Views.Components.ClientGrid;
-using LightsOn.BlazorApp.Views.Components.Client;
+using LightsOn.WebApp.Models.ClientViews;
+using LightsOn.WebApp.Models.Views.Components.ClientGrid;
+using LightsOn.WebApp.Views.Components.Client;
 using Moq;
 using NUnit.Framework;
 

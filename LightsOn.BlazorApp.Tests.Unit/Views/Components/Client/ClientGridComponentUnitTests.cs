@@ -1,5 +1,5 @@
 using Bunit;
-using LightsOn.BlazorApp.Services.Views.ClientViews;
+using LightsOn.WebApp.Services.Views.ClientViews;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
