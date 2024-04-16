@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LightsOn.BlazorApp\LightsOn.BlazorApp.csproj" />
+      <ProjectReference Include="..\LightsOn.WebApp\LightsOn.WebApp.csproj" />
     </ItemGroup>
 
 </Project>
