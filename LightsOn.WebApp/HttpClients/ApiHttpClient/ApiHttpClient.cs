@@ -24,12 +24,3 @@ public class ApiHttpClient : RESTFulApiFactoryClient, IApiHttpClient
 
     public HttpClient GetHttpClient => _httpClient;
 }
-// public class Customer
-// {
-//     public string Name { get; set; } = null!;
-//     public string PhoneNumber { get; set; } = null!;
-//     
-//     public bool IsNameValid { get; set; } = false;
-//     public bool IsPhoneNumberValid { get; set; } = false;
-//     
-// }
