@@ -14,7 +14,7 @@
     </ButtonBase>
 </div>
 
-<SfDialog Width="700px" Height="520px" ShowCloseIcon="true" IsModal="true" Visible="@_showDialog">
+<SfDialog Width="750px" Height="580px" ShowCloseIcon="true" IsModal="true" Visible="@_showDialog">
     <DialogTemplates>
         <Header></Header>
         <Content>
@@ -42,6 +42,10 @@
                             CssClass="validation-message">
                         </LabelBase>
                     }
+
+                    <SfTextBox @bind-Value="@Customer.DescribeProblem"
+                               Placeholder="Опишіть проблему"
+                               CssClass="e-filled custom-sf-textbox"/>
 
                     <LabelBase
                         Label="З вами якнайшвидше з'яжеться наш оператор"
@@ -135,7 +139,7 @@
      .e-filled.custom-sf-textbox.e-input-group.e-control-container.e-control-wrapper {
          border-radius: 10px;
          border-color: #9D9D9C;
-         height: 60px;
+         height: 80px;
          margin-bottom: 10px;
      }
 
