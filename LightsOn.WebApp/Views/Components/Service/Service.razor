@@ -1,19 +1,19 @@
 ﻿@using LightsOn.WebApp.Views.Bases
 <div class="service-option-container">
-        <ImageBase Src="/images/big_generator.svg" Alt="Генератор"
+        <ImageBase Src="images/big_generator.svg" Alt="Генератор"
                    CssClass="service-option-generate"></ImageBase>
     </div>
     
     <div class="price-in-grn">
         <LabelBase Label="Варість у грн"
                    CssClass="price-in-grn-text"></LabelBase>
-        <ImageBase Src="/images/pig.svg" CssClass="image-pig" Alt="Piggy bank"></ImageBase>
+        <ImageBase Src="images/pig.svg" CssClass="image-pig" Alt="Piggy bank"></ImageBase>
     </div>
     
     @foreach (var serviceItem in ServiceMenu.ServiceItems)
     {
         <div class="service-item">
-            <ImageBase Src="/images/thunder.svg" CssClass="image-thunder" Alt="Thunder"></ImageBase>
+            <ImageBase Src="images/thunder.svg" CssClass="image-thunder" Alt="Thunder"></ImageBase>
             <div class="text-to-service-item">
                 <LabelBase Label="@serviceItem.HeaderText"
                            CssClass="text-service-header"></LabelBase>
