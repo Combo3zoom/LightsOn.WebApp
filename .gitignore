@@ -2,7 +2,6 @@ bin/
 obj/
 /packages/
 riderModule.iml
-appsettings.json
 /_ReSharper.Caches/
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
