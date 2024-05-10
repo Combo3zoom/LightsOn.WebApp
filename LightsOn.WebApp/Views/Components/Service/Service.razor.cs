@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
-using LightsOn.WebApp.HttpClients.ApiHttpServiceDescription;
-using LightsOn.WebApp.Models.ServiceDescription;
+using LightsOn.WebApp.HttpClients.ApiHttpClient;
 using Microsoft.AspNetCore.Components;
 
 namespace LightsOn.WebApp.Views.Components.Service;
@@ -10,9 +9,9 @@ public sealed record ServiceMenu(
 public sealed record ServiceItem(string HeaderText, string MainText, string LowerPriceLimit);
 public partial class Service
 {
-    public Service()
+    protected override async Task OnInitializedAsync()
     {
-        var serviceMenuItems = ImmutableList.Create(
+        var serviceMenuItems1 = ImmutableList.Create(
             items: new[]
             {
                 new ServiceItem("Підбір дизельного генератора",
@@ -47,12 +46,19 @@ public partial class Service
         //
         // var serviceMenuItems = ImmutableList.Create(
         //     items: serviceDescriptions?.ToArray());
-
-        ServiceMenu = new ServiceMenu(serviceMenuItems);
+        
+        var serviceDescriptions =  await ApiServiceDescription?.GetServiceDescriptionsAsync();
+        if (serviceDescriptions != null)
+        {
+            var phoneNumberItems = serviceDescriptions
+                .Select(pn => new ServiceItem(pn.HeaderText, pn.MainText, pn.LowerPriceLimit))
+                .ToImmutableList();
+            ServiceMenu = new ServiceMenu(phoneNumberItems);
+        }
     }
     
     public ServiceMenu ServiceMenu { get; set; }
     
     [Inject]
-    private IApiHttpServiceDescription ApiServiceDescription { get; set; }
+    private IApiHttpClient ApiServiceDescription { get; set; }
 }
