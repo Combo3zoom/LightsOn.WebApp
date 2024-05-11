@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "LightsOn.WebApp",
   "resources": {
-    "hash": "sha256-0ufhglfx+DtwlZ8nnMHqFljHfMS1SK4sJObJSILaS/M=",
+    "hash": "sha256-ml1yQpTEi/21EWKF3s02jh4/bFW9qT/qLBdR/EDQG7o=",
     "jsModuleNative": {
       "dotnet.native.8.0.4.6vlmefabfv.js": "sha256-ju0+XWE0ihz554eKEj0HQ8Opa61xpbUIaX5/MNo8we4="
     },
@@ -21,7 +21,7 @@
       "FluentAssertions.wasm": "sha256-mX/qwuezPXNo3BcMa7x0hIIN2Z2vU/8s2reEJmpVCic=",
       "FluentValidation.wasm": "sha256-r9LyU/ai1EklmxBpjZXuv8cdAf8HD8fJyC6gTkgAx14=",
       "LanguageExt.Core.wasm": "sha256-agQqwxdNOvhVlBcC1YOqLhn68tZG/PuktZ+G7L6DBlQ=",
-      "LightsOn.WebApp.wasm": "sha256-kTOSYgglj+OOtUQXmnKjfFPKHzbRSEoYHnB+A6rWuKA=",
+      "LightsOn.WebApp.wasm": "sha256-nWM/2jNk9XyNc2Xt8wT4Z5rVrGNXCoN7L00k3WkBSuM=",
       "Microsoft.AspNetCore.Authorization.wasm": "sha256-c9LJukkhZLFImau/UOwClSXxMVmsX3cfxfxScIuDViE=",
       "Microsoft.AspNetCore.Components.Authorization.wasm": "sha256-mi0WmRQbwUTW7E1JpfPMsZIyeyY7Fv9FmHmq+kAL4Yc=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-xQbpGsD6UC8aP0+MQ8Dh8tVxh43SSRpZsuZCFv9dBBI=",
