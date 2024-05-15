@@ -1,10 +1,11 @@
-﻿@using LightsOn.WebApp.Views.Bases
+﻿@using System.Collections.Immutable
+@using LightsOn.WebApp.Views.Bases
 <div class="info-section">
     <div class="phone-container">
         <div class="icon-background">
             <ImageBase Src="images/mobile.svg" Alt="Слухавка" CssClass="image-left"></ImageBase>
         </div>
-        @foreach (var phoneNumber in PhoneNumberMenu.PhoneNumberItems)
+        @foreach (var phoneNumber in PhoneNumberMenu?.PhoneNumberItems ?? ImmutableList<PhoneNumberMenuItem>.Empty)
         {
             <LabelBase Label=@phoneNumber.PhoneNumber CssClass="phone-number"></LabelBase>
         }
@@ -23,7 +24,7 @@
     </div>
     <div class="map-container">
         <div class="office-street">
-            @foreach (var street in StreetMenu.StreetMenuItems)
+            @foreach (var street in StreetMenu?.StreetMenuItems ?? ImmutableList<StreetMenuItem>.Empty)
             {
                 <LabelBase Label=@street.Street CssClass="street-text"></LabelBase>
             }

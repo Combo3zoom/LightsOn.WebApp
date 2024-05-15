@@ -1,5 +1,7 @@
-﻿@using Syncfusion.Blazor.Cards;
+﻿@using System.Collections.Immutable
+@using Syncfusion.Blazor.Cards;
 @using LightsOn.WebApp.Views.Bases
+@using Syncfusion.Blazor.Maps
 
 <div @attributes="AdditionalAttributes" class="working-hours-map" id="workingHoursMap">
     <SfCard>
@@ -13,10 +15,14 @@
                                               з 8:00 до 19:00 пн-пт
                                               з 9:00 до 15:00 сб-нд" 
                                        CssClass="hours-label"></LabelBase>
-                            <LabelBase Label="вул. Конюшинна 10" CssClass="address-label"></LabelBase>
+                            @foreach (var streetMenu in StreetMenu?.StreetMenuItems ?? ImmutableList<StreetMenuItem>.Empty)
+                            {
+                                <LabelBase Label=@streetMenu.Street CssClass="address-label"></LabelBase>
+                            }
                         </div>
+                        
                         <div class="visit-info">
-                            <ImageBase Src="images/boy_and_hand.svg" Alt="Хлопчик, який махає рукою"
+                            <ImageBase Src="/images/boy_and_hand.svg" Alt="Хлопчик, який махає рукою"
                                        CssClass="visit-image-boy"></ImageBase>
                             <div class="text-come-to-you-container">
                                 <LabelBase Label="Прийдемо до вас" CssClass="text-come-to-you"></LabelBase>
@@ -24,15 +30,45 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="contact">
+                        <LabelBase Label="Контакти" CssClass="text-come-to-you"></LabelBase>
+                        @foreach (var phoneNumber in PhoneNumberMenu?.PhoneNumberItems ?? ImmutableList<PhoneNumberMenuItem>.Empty)
+                        {
+                            <LabelBase Label=@phoneNumber.PhoneNumber CssClass="phone-number"></LabelBase>
+                        }
+                    </div>
                             
                     <div class="google-map-container">
-                        <ImageBase Src="images/big_map.svg" Alt="Карта"
-                                   CssClass="visit-image-map"></ImageBase>
+                        <SfMaps Width="80%" Height="500px">
+                            <MapsZoomSettings Enable="true" ZoomFactor="15" MinZoom="13" MaxZoom="17"></MapsZoomSettings>
+                            <MapsCenterPosition Latitude="49.8075994453431" Longitude="23.905400226487536"></MapsCenterPosition>
+                            
+                            <MapsZoomToolbarSettings>
+                                <MapsZoomToolbarButton ToolbarItems="new List<ToolbarItem>() { ToolbarItem.Zoom, 
+                                ToolbarItem.ZoomIn, ToolbarItem.ZoomOut, ToolbarItem.Pan }">
+                                </MapsZoomToolbarButton>
+                            </MapsZoomToolbarSettings>
+                            
+                            <MapsLayers>
+                                <MapsLayer UrlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png" TValue="string">
+                                    <MapsMarkerSettings>
+                                        <MapsMarker Visible="true" 
+                                                    Height="25" 
+                                                    Width="20" 
+                                                    DataSource="Cities" 
+                                                    TValue="City">
+                                        </MapsMarker>
+                                    </MapsMarkerSettings>
+                                </MapsLayer>
+                            </MapsLayers>
+                        </SfMaps>
                     </div>
                 </div>
             </div>
         </CardContent>
     </SfCard>
+    
 </div>
 
 <style>
@@ -51,21 +87,32 @@
 
     .working-hours-details {
         display: flex;
-        justify-content: space-between;
     }
-    
-    .google-map-container {
+
+    .working-hours-details-text {
+        flex: 1; 
+        order: 1;
+        max-width: 450px;
+    }
+
+    .contact {
         flex: 1;
         order: 2;
+        max-width: 250px;
+        margin-left: 60px;
+        margin-right: 60px;
     }
-    
-    .working-hours-details-text {
+
+    .google-map-container {
         flex: 1;
-        order: 1;
+        order: 3;
+        display: flex;
+        justify-content: center;
     }
     
     .working-hours-details {
         display: flex;
+        align-items: flex-start;
     }
     
     .hours-label, .hours-label-work {
@@ -108,11 +155,31 @@
         font-size: 30px;
         text-transform: uppercase;
         font-family: 'Exo_2', sans-serif;
+        padding-bottom: 10px;
     }
     
     .address-label{
         font-size: 25px;
         margin-top: 30px;
         font-family: 'Exo_2', sans-serif;
+    }
+
+    .phone-number {
+        background-color: #FFDD00;
+        color: #000;
+        border-radius: 20px;
+        padding: 10px;
+        font-weight: bold;
+        margin: 5px 5px;
+        font-size: 25px;
+        text-align: center;
+        font-family: 'Exo_2', sans-serif;
+    }
+    
+    .contact{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 </style>

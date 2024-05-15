@@ -1,5 +1,6 @@
 namespace LightsOn.WebApp.Models.ServiceDescription;
 
+[Serializable]
 public class ServiceDescription(string headerText, string mainText, string lowerPriceLimit)
 {
     public string HeaderText { get; set; } = headerText;
