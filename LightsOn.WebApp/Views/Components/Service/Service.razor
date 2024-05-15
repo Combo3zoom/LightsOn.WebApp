@@ -1,4 +1,5 @@
-﻿@using LightsOn.WebApp.Views.Bases
+﻿@using System.Collections.Immutable
+@using LightsOn.WebApp.Views.Bases
 <div class="service-option-container">
         <ImageBase Src="/images/big_generator.svg" Alt="Генератор"
                    CssClass="service-option-generate"></ImageBase>
@@ -10,7 +11,7 @@
         <ImageBase Src="/images/pig.svg" CssClass="image-pig" Alt="Piggy bank"></ImageBase>
     </div>
     
-    @foreach (var serviceItem in ServiceMenu.ServiceItems)
+    @foreach (var serviceItem in ServiceMenu?.ServiceItems ?? ImmutableList<ServiceItem>.Empty)
     {
         <div class="service-item">
             <ImageBase Src="/images/thunder.svg" CssClass="image-thunder" Alt="Thunder"></ImageBase>
