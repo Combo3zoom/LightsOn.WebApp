@@ -1,11 +1,9 @@
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using LightsOn.WebApp;
 using LightsOn.WebApp.Brokers.Apis;
 using LightsOn.WebApp.Brokers.Navigations;
-using LightsOn.WebApp.Extensions;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
+using LightsOn.WebApp.HttpClients;
 using LightsOn.WebApp.Models.Configurations;
 using LightsOn.WebApp.Services.Views.SidebarView;
 using Microsoft.Extensions.Options;
@@ -17,7 +15,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.Configure<ApiConfigurations>(builder.Configuration.GetSection("ApiConfigurations"));
-
 
 builder.Services.AddScoped(sp 
     => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
@@ -34,18 +31,25 @@ builder.Services.AddMsalAuthentication(options =>
 });
 
 
-builder.Services.AddHttpClient<IApiHttpClient, ApiHttpClient>(
+builder.Services.AddHttpClient<ApiHttpClient>(
     (provider, client) =>
     {
         var optionsApiConfigurations = provider.GetRequiredService<IOptions<ApiConfigurations>>();
         var baseAddress = optionsApiConfigurations.Value.Url;
         client.BaseAddress = new Uri(baseAddress);  
     });
+builder.Services.AddScoped(sp =>
+{
+    var url = builder.Configuration["ApiConfigurations:Url"];
+    
+    return new ApiHttpClient
+    {
+        BaseAddress = new Uri(url)
+    };
+});
 
 builder.Services.AddTransient<IApiBroker, ApiBroker>();
 builder.Services.AddTransient<INavigationBroker, NavigationBroker>();
-builder.Services.AddClientService();
-builder.Services.AddClientViewService();
 builder.Services.AddTransient<ISidebarViewService, SidebarViewService>();
 
 builder.Services.AddSyncfusionBlazor();
@@ -53,8 +57,5 @@ Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
     builder.Configuration.GetValue<string>("SyncfusionLicenseKey"));
 
 var host = builder.Build();
-
-var httpClient = host.Services.GetRequiredService<HttpClient>();
-var appSettings = await httpClient.GetFromJsonAsync<LocalConfigurations>("appsettings.json");
 
 await host.RunAsync();

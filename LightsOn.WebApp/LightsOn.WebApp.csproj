@@ -13,9 +13,9 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.3"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.3" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.3" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-        <PackageReference Include="RESTFulSense.WebAssembly" Version="2.18.1" />
         <PackageReference Include="Scrutor" Version="4.2.2" />
         <PackageReference Include="Syncfusion.Blazor" Version="22.2.11" />
         <PackageReference Include="System.Reactive" Version="6.0.0" />
@@ -39,7 +39,6 @@
         <AdditionalFiles Include="Views\Bases\SidebarBase.razor" />
         <AdditionalFiles Include="Views\Components\CallButtonContainer\CallButtonContainer.razor" />
         <AdditionalFiles Include="Views\Components\CardContainer\CardContainer.razor" />
-        <AdditionalFiles Include="Views\Components\Client\ClientGrid.razor" />
         <AdditionalFiles Include="Views\Components\InfoSection\InfoSection.razor" />
         <AdditionalFiles Include="Views\Components\Navigate\NavigateToHome.razor" />
         <AdditionalFiles Include="Views\Components\Navigate\NavigateToSignIn.razor" />

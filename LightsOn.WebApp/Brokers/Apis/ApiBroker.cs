@@ -1,30 +1,36 @@
-﻿using System.Collections.Immutable;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using LanguageExt;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
-using LightsOn.WebApp.Models.Clients;
+using LightsOn.WebApp.HttpClients;
+using LightsOn.WebApp.Models.Customer;
+using LightsOn.WebApp.Models.PhoneNumber;
+using LightsOn.WebApp.Models.ServiceDescription;
 using static LanguageExt.Prelude;
 
 namespace LightsOn.WebApp.Brokers.Apis;
 
-public partial class ApiBroker : IApiBroker
+public class ApiBroker : IApiBroker
 {
-    private readonly IApiHttpClient _apiClient;
+    private readonly ApiHttpClient _apiHttpClient;
 
-    public ApiBroker(IApiHttpClient apiClient)
+    public ApiBroker(ApiHttpClient apiHttpClient)
     {
-        _apiClient = apiClient;
+        _apiHttpClient = apiHttpClient;
     }
 
-    public async ValueTask<Either<Exception, ImmutableArray<Client>>> GetClients()
+    public TryAsync<int> CreateCustomer(CreateCustomerCommand command)
     {
-        try
-        {
-            var clients = await _apiClient.GetContentAsync<ImmutableArray<Client>>("");
-            return Right(clients);
-        }
-        catch (Exception e)
-        {
-            return Left(e);
-        }
+        return TryAsync(_apiHttpClient.PostAsJsonAsync("customers", command))
+            .MapAsync(message => message.Content.ReadFromJsonAsync<int>());
+    }
+
+    public TryAsync<CompanyPhoneNumber[]> GetCompanyPhoneNumbers()
+    {
+        return TryAsync(_apiHttpClient.GetFromJsonAsync<CompanyPhoneNumber[]>("company-phone-numbers"));
+    }
+
+    public TryAsync<ServiceDescription[]> GetServiceDescriptions()
+    {
+        return TryAsync(_apiHttpClient.GetFromJsonAsync<ServiceDescription[]>("service-descriptions"));
     }
 }

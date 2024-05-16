@@ -1,5 +1,7 @@
-﻿using System.Text.RegularExpressions;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
+﻿using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
+using LightsOn.WebApp.Brokers.Apis;
+using LightsOn.WebApp.Models.Customer;
 using Microsoft.AspNetCore.Components;
 using Syncfusion.Blazor.Popups;
 
@@ -11,7 +13,7 @@ public class Customer
     public string Name { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
     
-    public string DescribeProblem { get; set; } = null!;
+    public string ProblemDescription { get; set; } = null!;
     
     public bool IsNameValid { get; set; } = false;
     public bool IsPhoneNumberValid { get; set; } = false;
@@ -31,7 +33,7 @@ public partial class CallButtonContainer: ComponentBase
     private string _tooltipContent;
     
     [Inject]
-    private IApiHttpClient ApiClient { get; set; }
+    private IApiBroker ApiBroker { get; set; }
     public CallButtonContainer()
     {
         _showDialog = false;
@@ -53,15 +55,23 @@ public partial class CallButtonContainer: ComponentBase
     }
     private async Task SubmitCallRequest()
     {
-        if (Customer is { IsNameValid: true, IsPhoneNumberValid: true })
+        if (Customer is not { IsNameValid: true, IsPhoneNumberValid: true })
         {
-            _showDialog = false;
-            var response = await ApiClient.SubmitCustomerAsync(Customer);
-            ShowTooltip(response.IsSuccessStatusCode
-                ? "Ваш запит успішно відправлено!"
-                : "Сталася помилка під час відправлення запиту.");
-            await InvokeAsync(StateHasChanged);
+            return;
         }
+        
+        _showDialog = false;
+        var createCustomerCommand = new CreateCustomerCommand(Customer.Name, Customer.PhoneNumber, Customer.ProblemDescription);
+        var response = await ApiBroker.CreateCustomer(createCustomerCommand);
+        response.Match(s =>
+        {
+            ShowTooltip("Ваш запит успішно відправлено!");
+        }, fail =>
+        {
+            ShowTooltip("Сталася помилка під час відправлення запиту.");
+        });
+        
+        StateHasChanged();
     }
     
     private async Task ValidateName(ChangeEventArgs e)

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Immutable;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
+using LightsOn.WebApp.Brokers.Apis;
 using Microsoft.AspNetCore.Components;
 
 namespace LightsOn.WebApp.Views.Components.Service;
@@ -11,18 +11,21 @@ public partial class Service
 {
     protected override async Task OnInitializedAsync()
     {
-        var serviceDescriptions =  await ApiServiceDescription?.GetServiceDescriptionsAsync();
-        if (serviceDescriptions != null)
-        {
-            var servicesItems = serviceDescriptions
+        await ApiBroker.GetServiceDescriptions()
+            .Select(serviceDescriptions => serviceDescriptions
                 .Select(pn => new ServiceItem(pn.HeaderText, pn.MainText, pn.LowerPriceLimit))
-                .ToImmutableList();
-            ServiceMenu = new ServiceMenu(servicesItems);
-        }
+                .ToImmutableList())
+            .Match(serviceItems =>
+            {
+                ServiceMenu = new ServiceMenu(serviceItems);
+            }, exception =>
+            {
+                ServiceMenu = new ServiceMenu(ImmutableList<ServiceItem>.Empty);
+            });
     }
     
     public ServiceMenu ServiceMenu { get; set; }
     
     [Inject]
-    private IApiHttpClient ApiServiceDescription { get; set; }
+    private IApiBroker ApiBroker { get; set; }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
-using LightsOn.WebApp.HttpClients.ApiHttpClient;
+using LightsOn.WebApp.Brokers.Apis;
 using Microsoft.AspNetCore.Components;
 
 namespace LightsOn.WebApp.Views.Components.InfoSection;
@@ -16,14 +15,21 @@ public partial class InfoSection : ComponentBase
 {
     protected override async Task OnInitializedAsync()
     {
-        var phoneNumbers =  await ApiHttpCompanyPhoneNumber?.GetCompanyPhoneNumbersAsync();
-        if (phoneNumbers != null)
-        {
-            var phoneNumberItems = phoneNumbers
-                .Select(pn => new PhoneNumberMenuItem(FormatPhoneNumber(pn.PhoneNumber)))
-                .ToImmutableList();
-            PhoneNumberMenu = new PhoneNumberMenu(phoneNumberItems);
-        }
+        await ApiBroker.GetCompanyPhoneNumbers()
+            .Select(phoneNumbers =>
+            {
+                var phoneNumberItems = phoneNumbers
+                    .Select(pn => new PhoneNumberMenuItem(FormatPhoneNumber(pn.PhoneNumber)))
+                    .ToImmutableList();
+
+                return new PhoneNumberMenu(phoneNumberItems);
+            }).Match(menu =>
+            {
+                PhoneNumberMenu = menu;
+            }, exception =>
+            {
+                PhoneNumberMenu = new PhoneNumberMenu(ImmutableList<PhoneNumberMenuItem>.Empty);
+            });
         
         var streetItems = ImmutableList.Create(
             items: new[]
@@ -47,6 +53,6 @@ public partial class InfoSection : ComponentBase
     public StreetMenu StreetMenu { get; set; }
     
     [Inject]
-    private IApiHttpClient ApiHttpCompanyPhoneNumber { get; set; }
+    private IApiBroker ApiBroker { get; set; }
 
 }
