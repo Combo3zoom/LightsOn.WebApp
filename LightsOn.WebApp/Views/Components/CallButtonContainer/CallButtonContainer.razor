@@ -9,14 +9,13 @@
 <div class="call-button-container">
     <ButtonBase OnButtonPressed="OpenDialog"
                 CssClass="call-button">
-        Дзвінок вам
-        <span><img src="/images/mimi_phone.svg" alt="Custom Icon" class="phone-icon"/></span>
+        <ImageBase Src="/images/mimi_phone.svg"></ImageBase>
     </ButtonBase>
 </div>
 
-<SfDialog Width="750px" Height="580px" ShowCloseIcon="true" IsModal="true" Visible="@_showDialog">
+<SfDialog Width="750px" Height="580px" ShowCloseIcon="true" IsModal="true" Visible="@_showDialog" 
+          CssClass="call-button-dialog">
     <DialogTemplates>
-        <Header></Header>
         <Content>
             <EditForm Model="@Customer" OnValidSubmit="SubmitCallRequest" FormName="CustomerWaitCalling">
                 <div class="dialog-content centered-content">
@@ -70,26 +69,46 @@
 
 
 <style>
+    .call-button-dialog.e-dialog .e-dlg-header-content {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    
+    .call-button-dialog.e-dialog .e-dlg-content {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .call-button-dialog.e-dialog {
+        border: none;
+    }
+    
+    .call-button-dialog {
+        border-radius: 10px;
+    }
+    
     .call-button-container {
         display: flex;
         justify-content: flex-end; 
         margin-top: 40px;
-        padding-right: 30px; 
+        padding-right: 30px;
+        position: fixed; 
+        bottom: 8px;
+        right: 8px;
+        z-index: 1000;
     }
     
     .call-button,  .e-btn.e-primary{
         background-color: #FFDD00; 
         color: #000; 
         border: none; 
-        border-radius: 25px; 
+        border-radius: 10px; 
         padding: 15px 30px; 
         font-weight: bold; 
         text-transform: uppercase; 
         font-size: 30px;
         line-height: 36px;
         font-family: 'Exo_2', sans-serif;
-        width: 321px;
-        height: 75px;
     }
     .e-btn.e-primary {
            margin-top: 40px;

@@ -8,6 +8,13 @@
     height: 100vh;
 }
 
+@media screen and (min-width: 1300px) {
+    .grid-container {
+        margin-left: 128px;
+        margin-right: 128px;
+    }
+}
+
 .app-bar-container {
     grid-area: app-bar;
 }

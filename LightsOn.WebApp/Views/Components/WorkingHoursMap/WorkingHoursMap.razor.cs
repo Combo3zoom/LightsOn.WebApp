@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using LightsOn.WebApp.Brokers.Apis;
 using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor.Maps;
 
 namespace LightsOn.WebApp.Views.Components.WorkingHoursMap;
 
@@ -20,6 +21,19 @@ public class City
 }
 public partial class WorkingHoursMap  : ComponentBase
 {
+    public List<ToolbarItem> ToolbarItems  { get; set; }
+
+    public WorkingHoursMap()
+    {
+        ToolbarItems =
+        [
+            ToolbarItem.Zoom,
+            ToolbarItem.ZoomIn, 
+            ToolbarItem.ZoomOut, 
+            ToolbarItem.Pan
+        ];
+    }
+    
     protected override async Task OnInitializedAsync()
     {
         await ApiBroker.GetCompanyPhoneNumbers()
@@ -42,7 +56,7 @@ public partial class WorkingHoursMap  : ComponentBase
         var streetItems = ImmutableList.Create(
             items: new[]
             {
-                new StreetMenuItem("вул. Ярослава Мудрого 24"),
+                new StreetMenuItem("Львівський р-н., с. Лапаївка, вул. Ярослава Мудрого 24"),
             });
         
         StreetMenu = new StreetMenu(streetItems);

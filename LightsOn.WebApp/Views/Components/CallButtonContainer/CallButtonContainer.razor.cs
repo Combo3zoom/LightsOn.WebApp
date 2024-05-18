@@ -113,16 +113,14 @@ public partial class CallButtonContainer: ComponentBase
         await Task.Delay(timeDelay, _validationCts.Token);
     }
     
-    private void ShowTooltip(string message)
+    private async Task ShowTooltip(string message)
     {
         _tooltipContent = message;
         _tooltip.Open();
         StateHasChanged();
 
-        Task.Delay(3000).ContinueWith(t =>
-        {
-            _tooltip.Close();
-            InvokeAsync(StateHasChanged);
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+        await Task.Delay(3000);
+        await _tooltip.Close();
+        StateHasChanged();
     }
 }
