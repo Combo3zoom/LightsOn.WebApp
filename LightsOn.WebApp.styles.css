@@ -9,6 +9,13 @@
     height: 100vh;
 }
 
+@media screen and (min-width: 1300px) {
+    .grid-container[b-ccqx8eny64] {
+        margin-left: 128px;
+        margin-right: 128px;
+    }
+}
+
 .app-bar-container[b-ccqx8eny64] {
     grid-area: app-bar;
 }
@@ -22,6 +29,12 @@
     margin: 20px;
 }
 /* /Views/Bases/AppBarBase.razor.rz.scp.css */
+.appbar-line[b-x7ttvghblm] {
+    height: 2px;
+    background-color: blue;
+    width: calc(100% - 40px);
+    margin: 5px auto 0;
+}
 /* /Views/Bases/LabelBase.razor.rz.scp.css */
 .span[b-8m619yz7w6]{
     font-family: "Exo_2", sans-serif;
@@ -160,6 +173,14 @@
 }
 
 .se[b-68istt1cje]
+/* /Views/Components/CardContainer/CardContainer.razor.rz.scp.css */
+@media screen and (max-width: 1300px)
+{
+    .card-content[b-cez2ga5gp6] {
+        display: flex;
+        flex-direction: column;
+    }
+}
 /* /Views/Components/Service/Service.razor.rz.scp.css */
 [b-gwq7bbbitu] .service-option-container {
     display: flex;
@@ -228,115 +249,18 @@
     padding: 10px 20px;
     font-size: 30px;
     border: none;
-    border-radius: 21px;
+    border-radius: 10px;
     font-weight: bold;
     height: 55px;
     width: 166px;
 }
+/* /Views/Components/WorkingHoursMap/WorkingHoursMap.razor.rz.scp.css */
+@media screen and (max-width: 1300px)
+{
+    .working-hours-details[b-4i89755cr4] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 /* /Views/Pages/Home.razor.rz.scp.css */
-body[b-uhkc4m8udw] {
-    font-family: 'Exo_2', sans-serif;
-    font-size: 16px;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
-header[b-uhkc4m8udw] {
-    background-color: #1a1a1a;
-    padding: 20px;
-}
-
-header h1[b-uhkc4m8udw] {
-    color: #f1c40f;
-    font-size: 36px;
-    margin: 0;
-}
-
-nav[b-uhkc4m8udw] {
-    background-color: #333;
-    padding: 10px;
-}
-
-nav ul[b-uhkc4m8udw] {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav li[b-uhkc4m8udw] {
-    margin-right: 20px;
-}
-
-nav a[b-uhkc4m8udw] {
-    text-decoration: none;
-    color: #f1c40f;
-    font-weight: bold;
-}
-
-nav a:hover[b-uhkc4m8udw] {
-    color: #fff;
-}
-
-.banner[b-uhkc4m8udw] {
-    background-image: url('generator-repair-banner.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.banner h2[b-uhkc4m8udw] {
-    color: #fff;
-    font-size: 48px;
-    text-align: center;
-}
-
-.container[b-uhkc4m8udw] {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.services[b-uhkc4m8udw] {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
-.service[b-uhkc4m8udw] {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 30%;
-    margin-bottom: 20px;
-}
-
-.service h3[b-uhkc4m8udw] {
-    font-size: 24px;
-    margin: 0 0 10px 0;
-}
-
-.service p[b-uhkc4m8udw] {
-    font-size: 16px;
-    color: #666;
-}
-
-footer[b-uhkc4m8udw] {
-    background-color: #1a1a1a;
-    padding: 20px;
-    text-align: center;
-}
-
-footer p[b-uhkc4m8udw] {
-    color: #f1c40f;
-    margin: 0;
-    font-size: 16px;
-}
-
-
-
