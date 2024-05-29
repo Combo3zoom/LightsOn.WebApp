@@ -16,6 +16,7 @@
         <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.3" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.WebEncoders" Version="8.0.6" />
         <PackageReference Include="Scrutor" Version="4.2.2" />
         <PackageReference Include="Syncfusion.Blazor" Version="22.2.11" />
         <PackageReference Include="System.Reactive" Version="6.0.0" />

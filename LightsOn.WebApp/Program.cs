@@ -1,3 +1,5 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using LightsOn.WebApp;
@@ -7,6 +9,7 @@ using LightsOn.WebApp.HttpClients;
 using LightsOn.WebApp.Models.Configurations;
 using LightsOn.WebApp.Services.Views.SidebarView;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.WebEncoders;
 using Syncfusion.Blazor;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -55,6 +58,13 @@ builder.Services.AddTransient<ISidebarViewService, SidebarViewService>();
 builder.Services.AddSyncfusionBlazor();
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
     builder.Configuration.GetValue<string>("SyncfusionLicenseKey"));
+
+builder.Services.Configure<WebEncoderOptions>(options =>
+{
+    options.TextEncoderSettings = new TextEncoderSettings(
+        UnicodeRanges.BasicLatin,
+        UnicodeRanges.Latin1Supplement);
+});
 
 var host = builder.Build();
 
