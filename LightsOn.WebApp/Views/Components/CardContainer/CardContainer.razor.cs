@@ -6,10 +6,16 @@ public partial class CardContainer : ComponentBase
 {
     [Inject] 
     public required NavigationManager NavigationManager { get; set; }
+
+    public bool DetailsVisible { get; set; }
+    private string DetailsHiddenClass => DetailsVisible ? "" : "hidden";
     
     private Task OnButtonPressed()
     {
-        NavigationManager.NavigateTo("/Services");
+        DetailsVisible = !DetailsVisible;
+        
+        StateHasChanged();
+        
         return Task.CompletedTask;
     }
 }

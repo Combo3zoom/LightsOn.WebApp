@@ -1,5 +1,6 @@
 ﻿@using Syncfusion.Blazor.Cards;
 @using LightsOn.WebApp.Views.Bases
+@using LightsOn.WebApp.Views.Components.Service
 
 <div class="card-container">
     <SfCard>
@@ -29,12 +30,19 @@
                     <ButtonBase Label="Детальніше" CssClass="detail-button" OnButtonPressed="OnButtonPressed"></ButtonBase>
                 </div>
             </div>
+            <div class="@DetailsHiddenClass">
+                <Service></Service>
+            </div>
         </CardContent>
     </SfCard>
 </div>
 
 
 <style>
+    .hidden {
+        display: none;
+    }
+    
     .card-content {
         display: flex;
         flex-direction: row;
