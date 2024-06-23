@@ -18,4 +18,8 @@ public partial class AppBarBase
     {
         NavigationManager.NavigateTo("/Services");
     }
+    public async Task OnDocumentButtonPressed()
+    {
+        NavigationManager.NavigateTo("/document");
+    }
 }

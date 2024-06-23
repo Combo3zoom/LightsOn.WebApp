@@ -47,14 +47,16 @@ builder.Services.AddScoped(sp =>
         BaseAddress = new Uri(url)
     };
 });
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
+    builder.Configuration.GetValue<string>("SyncfusionLicenseKey"));
 
 builder.Services.AddTransient<IApiBroker, ApiBroker>();
 builder.Services.AddTransient<INavigationBroker, NavigationBroker>();
 builder.Services.AddTransient<ISidebarViewService, SidebarViewService>();
 
 builder.Services.AddSyncfusionBlazor();
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-    builder.Configuration.GetValue<string>("SyncfusionLicenseKey"));
+// Register PdfService
+builder.Services.AddTransient<PdfService>();
 
 var host = builder.Build();
 

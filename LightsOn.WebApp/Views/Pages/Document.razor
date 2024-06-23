@@ -1,0 +1,199 @@
+@page "/document"
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+
+<SfButton @onclick="GeneratePdf">Згенерувати ПДФ</SfButton>
+
+<div class="header-info">
+    <SfTextBox @bind-Value="headerInfo.FullName" Placeholder="Повне ім'я"></SfTextBox>
+    <SfTextBox @bind-Value="headerInfo.AccountNumber" Placeholder="Рахунок"></SfTextBox>
+    <SfTextBox @bind-Value="headerInfo.BankName" Placeholder="Банк"></SfTextBox>
+    <SfTextBox @bind-Value="headerInfo.IPN" Placeholder="IPN"></SfTextBox>
+    <SfTextBox @bind-Value="headerInfo.MFO" Placeholder="МФО"></SfTextBox>
+    <SfTextBox @bind-Value="headerInfo.EDRPOU" Placeholder="ЄДРПОУ"></SfTextBox>
+    @* <SfDatePicker @bind-Value="headerInfo.Date" Placeholder="Дата"></SfDatePicker> *@
+</div>
+<div class="table-header">
+    <p>Дата: @headerInfo.Date.ToString("dd.MM.yyyy")</p>
+</div>
+
+<SfGrid DataSource="@selectedProducts" AllowPaging="false">
+    <GridColumns>
+        <GridColumn Field=@nameof(Product.Id) HeaderText="№" Width="50"></GridColumn>
+        <GridColumn Field=@nameof(Product.Name) HeaderText="Товар"></GridColumn>
+        <GridColumn Field=@nameof(Product.Quantity) HeaderText="Кількість"></GridColumn>
+        <GridColumn Field=@nameof(Product.Unit) HeaderText="Одиниця вимірювання"></GridColumn>
+        <GridColumn Field=@nameof(Product.Price) HeaderText="Ціна з ПДВ" Format="C2"></GridColumn>
+        <GridColumn Field=@nameof(Product.Total) HeaderText="Сума з ПДВ" Format="C2"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+<SfDialog Width="800px" Height="500px" IsModal="true" @bind-Visible="isDialogVisible" CloseOnEscape="true">
+    <DialogTemplates>
+        <Header>Вибір товару</Header>
+        <Content>
+            <div>
+                <SfDropDownList TValue="int" TItem="Product" DataSource="@products"
+                                Placeholder="Оберіть товар"
+                                @bind-Value="selectedProductId">
+                    <DropDownListFieldSettings Text="Name" Value="Id"></DropDownListFieldSettings>
+                </SfDropDownList>
+
+                <SfNumericTextBox TValue="int" @bind-Value="selectedQuantity" Min="1" Placeholder="Вкажіть кількість" CssClass="form-control my-2" />
+            </div>
+        </Content>
+        <FooterTemplate>
+            <div>
+                <SfButton CssClass="btn btn-success" @onclick="AddProductToList">Додати товар</SfButton>
+                <SfButton CssClass="btn btn-secondary" @onclick="() => isDialogVisible = false">Закрити</SfButton>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+</SfDialog>
+
+<SfButton CssClass="btn btn-primary" @onclick="() => isDialogVisible = true">Додати товар</SfButton>
+<SfButton CssClass="btn btn-primary" @onclick="() => isDialogVisible = true">Видалити товар</SfButton>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@code {
+    private bool isDialogVisible = false;
+    private List<Product> products = new List<Product>
+    {
+        new Product { Id = 1, Name = "Затяжний хомут 16-25 W2 нерж DIN3017 ", Price = 10, Unit = "шт", Quantity = 4 },
+        new Product { Id = 2, Name = "Фільтр паливний Р552010", Price = 675, Unit = "шт", Quantity = 1 },
+        new Product { Id = 3, Name = "Фільтр масляний HU 13 125/3 Х", Price = 950, Unit = "шт", Quantity = 1 },
+        new Product { Id = 6, Name = "Олива моторна MOBIL DELVAC MODERN 15W-40, SUPER DEFENSE V4, 208L",
+            Price = 155, Unit = "л", Quantity = 30 },
+        new Product { Id = 5, Name = "DELO XLC ANTIFREEZE/COOLANT-CONCENTRATE - 208L Охолоджуюча рідина",
+            Price = 155, Unit = "л", Quantity = 17 },
+        new Product { Id = 4, Name = "Вода дистильована 5л", Price = 10, Unit = "л", Quantity = 17 },
+        new Product { Id = 7, Name = "Рукав для водяних радіаторів FKDR 16.0x3.5mm 6bar \"Semperit\"",
+            Price = 100, Unit = "м", Quantity = 3 },
+        new Product { Id = 8, Name = "Технічне обслуговування дизель-генератора GE.VO.275\\250.LT+011 (s/n 27671)",
+            Price = 8500, Unit = "послуга", Quantity = 1 },
+        new Product { Id = 9, Name = "Фільтр паливний PU 1058 X", Price = 764, Unit = "шт" },
+        
+    };
+
+    private List<Product> selectedProducts = new List<Product>
+    {
+        // new Product { Id = 1, Name = "Фільтр паливний PU 1058 X", Price = 764, Unit = "шт", Quantity = 1},
+        // new Product { Id = 2, Name = "Фільтр паливний Р552010", Price = 675, Unit = "шт", Quantity = 1 },
+        // new Product { Id = 3, Name = "Фільтр масляний HU 13 125/3 Х", Price = 950, Unit = "шт", Quantity = 1 },
+        // new Product { Id = 4, Name = "Вода дистильована 5л", Price = 10, Unit = "л", Quantity = 17 },
+        // new Product { Id = 5, Name = "DELO XLC ANTIFREEZE/COOLANT-CONCENTRATE - 208L Охолоджуюча рідина",
+        //     Price = 155, Unit = "л", Quantity = 17 },
+        // new Product { Id = 6, Name = "Олива моторна MOBIL DELVAC MODERN 15W-40, SUPER DEFENSE V4, 208L",
+        //     Price = 155, Unit = "л", Quantity = 30 },
+        // new Product { Id = 7, Name = "Рукав для водяних радіаторів FKDR 16.0x3.5mm 6bar \"Semperit\"",
+        //     Price = 100, Unit = "м", Quantity = 3 },
+        // new Product { Id = 8, Name = "Затяжний хомут 16-25 W2 нерж DIN3017 ", Price = 10, Unit = "шт", Quantity = 4 },
+        // new Product { Id = 9, Name = "Технічне обслуговування дизель-генератора GE.VO.275\\250.LT+011 (s/n 27671)",
+        //     Price = 8500, Unit = "послуга", Quantity = 1 },
+    };
+    private int selectedProductId;
+    private int selectedQuantity = 1;
+
+    private void AddProductToList()
+    {
+        var product = products.FirstOrDefault(p => p.Id == selectedProductId);
+        if (product != null)
+        {
+            var existingProduct = selectedProducts.FirstOrDefault(p => p.Id == product.Id);
+            if (existingProduct == null)
+            {
+                selectedProducts.Add(new Product
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Unit = product.Unit,
+                    Quantity = selectedQuantity
+                });
+            }
+            else
+            {
+                existingProduct.Quantity += selectedQuantity;
+            }
+            isDialogVisible = false; // Закриваємо діалог після додавання товару
+            StateHasChanged(); // Забезпечує оновлення UI після кожного оновлення списку
+        }
+    }
+}
+
+
+<style>
+    .sf-grid .e-headercell {
+        border: 2px solid black;
+    }
+    .sf-grid .e-rowcell {
+        border: 2px solid black;
+    }
+
+    /* Стилі для Syncfusion Grid */
+    .sf-grid .e-headercell, .sf-grid .e-rowcell, .sf-grid .e-gridheader {
+        font-size: 18px; /* Збільшення розміру шрифту */
+        color: black; /* Зміна кольору шрифту на чорний */
+        border: 2px solid black; /* Збільшення контурів */
+    }
+
+    .sf-grid .e-grid .e-table {
+        border-collapse: collapse;
+    }
+
+    .header-info {
+        margin: 30px 100px;
+        text-align: center;
+    }
+
+    .header-info h2, .header-info p {
+        margin: 10px 0;  /* Відступи всередині блоку header-info */
+    }
+
+    /* Стилізація для таблиці і заголовку таблиці */
+    .table-header {
+        text-align: left;  /* Вирівнювання заголовку таблиці по центру */
+        margin-top: 20px;
+        margin-bottom: 20px/* Відступ зверху перед таблицею */
+    }
+
+    /* Стилі для заголовків і тексту над таблицею */
+    .header-info h2, .header-info p, .table-header p {
+        font-size: 28px; /* Розмір шрифту для заголовку та іншого тексту над таблицею */
+        color: black; /* Забезпечуємо, що текст чорного кольору */
+    }
+
+    /* Стилі для елементів всередині таблиці */
+    .sf-grid .e-headercell, .sf-grid .e-rowcell {
+        font-size: 24px; /* Розмір шрифту для тексту в заголовках стовпців та комірках таблиці */
+        color: black; /* Колір тексту */
+    }
+
+    /* Зберігаємо інші вже існуючі стилі */
+    .sf-grid .e-headercell, .sf-grid .e-rowcell, .sf-grid .e-gridheader {
+        border: 2px solid black; /* Збільшення контурів */
+    }
+
+    .sf-grid .e-grid .e-table {
+        border-collapse: collapse; /* Колапс меж */
+    }
+
+
+
+</style>
